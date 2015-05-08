@@ -17,6 +17,8 @@ class HomeController < ApplicationController
     @amos_destinations = session[:destination_list][0]["destinations"]
     @andy_destinations = session[:destination_list][1]["destinations"]
     @evie_destinations = session[:destination_list][2]["destinations"]
+
+    @destinations = Country.all.map { |c| c.first }
   end
 
 end

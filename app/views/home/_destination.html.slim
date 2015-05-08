@@ -2,7 +2,7 @@ tr.destination
   td
     .checkbox
       label
-        = check_box_tag 'on_the_way', name, visited
+        = check_box_tag nil, name, visited
         = name if name.present?
   td
     = link_to fa_icon("times"), "javascript:void(0)", data: { name: "#{name}" }, class: 'delete-destination-button'

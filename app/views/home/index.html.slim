@@ -36,22 +36,18 @@
 
 .new-destination
   = label_tag("New destination")
-  = text_field_tag(:name, nil, class: 'form-control', placeholder: 'Enter a location')
+  = select_tag(:name, options_for_select([""] + @destinations), {class: 'form-control form-select2', placeholder: 'Enter a location'})
   = link_to "Add new destination", nil, class: 'btn btn-primary', id: "add-destination-button"
 
 javascript:
   $(function(){
+    // run select2
+    $(".form-select2").select2({allowClear: true});
+
     // automatically load destinations of current user
     var currentUserDestinations = "##{session[:user_hash]["name"]}" + "-destinations";
     $(currentUserDestinations).addClass("in");
 
     // only bind click events of currentUserDestinations
-    currentUserCheckboxes = currentUserDestinations + " input";
-
-    toggleDestinationVisitedStatus(currentUserCheckboxes);
-
-    currentUserDeleteButtons = currentUserDestinations + " .delete-destination-button";
-    deleteDestination(currentUserCheckboxes, currentUserDeleteButtons);
-
-    addDestination(currentUserCheckboxes);
+    actionsHandler(currentUserDestinations);
   })
