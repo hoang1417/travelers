@@ -12,6 +12,7 @@ class AuthenticationController < ApplicationController
 
   def logout_user
     session.delete(:user_hash)
+    session.delete(:destination_list)
 
     redirect_to root_path
   end

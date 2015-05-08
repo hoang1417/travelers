@@ -5,7 +5,7 @@
       h4.panel-title
         a data-toggle="collapse" data-parent="#accordion" href="#amos-destinations" aria-expanded="true" aria-controls="amos-destinations"
           |  AMOS
-    #amos-destinations.panel-collapse.collapse.in role="tabpanel" aria-labelledby="headingOne"
+    #amos-destinations.panel-collapse.collapse role="tabpanel" aria-labelledby="headingOne"
       .panel-body
         .table-responsive
           table.table.table-hover
@@ -38,3 +38,12 @@
   = label_tag("New destination")
   = text_field_tag(:name, nil, class: 'form-control', placeholder: 'Enter a location')
   = link_to "Add new destination", nil, class: 'btn btn-primary', id: "add-destination-button"
+
+javascript:
+  $(function(){
+    // automatically load destinations of current user
+    var currentUserDestinations = "##{session[:user_hash]["name"]}" + "-destinations";
+    $(currentUserDestinations).addClass("in");
+
+
+  })

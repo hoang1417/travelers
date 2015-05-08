@@ -6,15 +6,17 @@ class HomeController < ApplicationController
   end
 
   def index
-    connection = FaradayBuilder.travel_api_client(
-      'https://young-beyond-8772.herokuapp.com/travelers.json',
-      session[:user_hash]["token"]
-    )
-    response = connection.get.body
+    if session[:destination_list].blank?
+      connection = FaradayBuilder.travel_api_client(
+        'https://young-beyond-8772.herokuapp.com/travelers.json',
+        session[:user_hash]["token"]
+      )
+      session[:destination_list] = connection.get.body
+    end
 
-    @amos_destinations = response[0]["destinations"]
-    @andy_destinations = response[1]["destinations"]
-    @evie_destinations = response[2]["destinations"]
+    @amos_destinations = session[:destination_list][0]["destinations"]
+    @andy_destinations = session[:destination_list][1]["destinations"]
+    @evie_destinations = session[:destination_list][2]["destinations"]
   end
 
 end

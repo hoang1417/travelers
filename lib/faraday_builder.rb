@@ -23,6 +23,10 @@ class FaradayBuilder
   end
 
   def self.travel_api_update_destinations(path, token, destinations)
+    # path = "https://young-beyond-8772.herokuapp.com/travelers/1"
+    # token = "dHVhbkBmbGV4cG9ydC5jb206amF2YTRldmE"
+    # destinations = [{"name" => "Tokyo", "visited" => true}, {"name" => "Bali", "visited" => false}]
+
     connection = Faraday.new(path) do |builder|
       builder.response :oj
       builder.adapter Faraday.default_adapter
