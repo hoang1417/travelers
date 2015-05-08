@@ -45,5 +45,15 @@ javascript:
     var currentUserDestinations = "##{session[:user_hash]["name"]}" + "-destinations";
     $(currentUserDestinations).addClass("in");
 
-
+    // only bind click events of currentUserDestinations
+    currentUserCheckboxes = currentUserDestinations + " input";
+    $(currentUserCheckboxes).on("click", function(){
+      // toggle checked value
+      if ( $(this).attr("checked") == "checked" ) {
+        $(this).removeAttr("checked");
+      } else {
+        $(this).attr("checked", "checked");
+      }
+      toggleDestinationVisitedStatus(currentUserCheckboxes);
+    })
   })

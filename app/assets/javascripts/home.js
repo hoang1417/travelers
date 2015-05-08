@@ -1,15 +1,37 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
-
-var deleteDestination = function() {
-
+function deleteDestination() {
+  alert("delete");
 }
 
-var toggleDestinationVisitedStatus = function() {
+function toggleDestinationVisitedStatus(currentUserCheckboxes) {
+  var destinations = [];
+  var isChecked = false;
+  $(currentUserCheckboxes).each(function() {
+    // console.log($(this).attr('checked'));
+    if ( $(this).attr('checked') == "checked" ) {
+      isChecked = true;
+    } else {
+      isChecked = false;
+    }
+    var destination = {};
+    destination["name"] = $(this).val();
+    destination["visited"] = isChecked;
 
+    destinations.push(destination);
+  });
+  destinations = JSON.stringify(destinations);
+  alert(destinations);
+
+  $.ajax({
+    url: '/destinations',
+    type: 'POST',
+    data: { destinations: destinations },
+    traditional: true,
+    success: function (result) {
+      console.log(JSON.stringify(result));
+    }
+  });
 }
 
-var addDestination = function() {
-
+function addDestination() {
+  alert("add");
 }

@@ -2,7 +2,7 @@ tr
   td
     .checkbox
       label
-        = check_box_tag 'on_the_way', nil, visited
+        = check_box_tag 'on_the_way', name, visited
         = name if name.present?
   td
     = fa_icon "times"
