@@ -15,6 +15,13 @@ Rails.application.routes.draw do
     get :logout_user
   end
 
+  resources :destinations, only: [] do
+    collection do
+      post :update
+      get :list
+    end
+  end
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

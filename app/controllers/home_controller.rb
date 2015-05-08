@@ -8,7 +8,7 @@ class HomeController < ApplicationController
   def index
     connection = FaradayBuilder.travel_api_client(
       'https://young-beyond-8772.herokuapp.com/travelers.json',
-      session[:api_token]
+      session[:user_hash]["token"]
     )
     response = connection.get.body
 

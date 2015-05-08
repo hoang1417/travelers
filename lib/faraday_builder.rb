@@ -21,4 +21,15 @@ class FaradayBuilder
 
     connection
   end
+
+  def self.travel_api_update_destinations(path, token, destinations)
+    connection = Faraday.new(path) do |builder|
+      builder.response :oj
+      builder.adapter Faraday.default_adapter
+      builder.authorization :Token, :token => token
+      builder.params['destinations'] = destinations
+    end
+
+    connection
+  end
 end

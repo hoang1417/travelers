@@ -1,3 +1,4 @@
+
 #accordion.panel-group role="tablist" aria-multiselectable="true"
   .panel.panel-default
     #headingOne.panel-heading[role="tab"]
@@ -32,3 +33,8 @@
           table.table.table-hover
             - @evie_destinations.each do |destination|
               = render "destination", name: destination["name"], visited: destination["visited"]
+
+.new-destination
+  = label_tag("New destination")
+  = text_field_tag(:name, nil, class: 'form-control', placeholder: 'Enter a location')
+  = link_to "Add new destination", nil, class: 'btn btn-primary', id: "add-destination-button"

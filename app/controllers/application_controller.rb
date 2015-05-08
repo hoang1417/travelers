@@ -4,9 +4,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def authorize_token
-    session[:api_token] ||= nil
+    session[:user_hash] ||= nil
 
-    if session[:api_token].blank?
+    if session[:user_hash].blank?
       redirect_to root_path
     end
   end
