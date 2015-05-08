@@ -1,8 +1,8 @@
-tr
+tr.destination
   td
     .checkbox
       label
         = check_box_tag 'on_the_way', name, visited
         = name if name.present?
   td
-    = fa_icon "times"
+    = link_to fa_icon("times"), "javascript:void(0)", data: { name: "#{name}" }, class: 'delete-destination-button'

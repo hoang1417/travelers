@@ -47,13 +47,11 @@ javascript:
 
     // only bind click events of currentUserDestinations
     currentUserCheckboxes = currentUserDestinations + " input";
-    $(currentUserCheckboxes).on("click", function(){
-      // toggle checked value
-      if ( $(this).attr("checked") == "checked" ) {
-        $(this).removeAttr("checked");
-      } else {
-        $(this).attr("checked", "checked");
-      }
-      toggleDestinationVisitedStatus(currentUserCheckboxes);
-    })
+
+    toggleDestinationVisitedStatus(currentUserCheckboxes);
+
+    currentUserDeleteButtons = currentUserDestinations + " .delete-destination-button";
+    deleteDestination(currentUserCheckboxes, currentUserDeleteButtons);
+
+    addDestination(currentUserCheckboxes);
   })
