@@ -1,0 +1,6 @@
+= form_tag authentication_authorize_user_path, { method: :get }
+  .form-group
+    = label_tag("Traveler's Name", nil)
+    = text_field_tag(:name, nil, class: 'form-control', placeholder: 'Amos, Andy or Evie')
+
+  = submit_tag("Enter", class: 'btn btn-primary full-width')

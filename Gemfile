@@ -24,9 +24,27 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
 gem 'bootstrap-sass'
+gem 'font-awesome-rails'
+gem 'select2-rails'
+gem 'countries'
 
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 gem 'spring',        group: :development
+
+gem 'faraday'
+gem 'faraday_middleware'
+gem 'faraday_middleware-parse_oj', '~> 0.3.0'
+
+gem 'slim-rails'
+
+group :development do
+  gem 'pry-rails'
+  gem 'byebug'
+  gem 'better_errors'
+  gem 'web-console', '~> 2.0'
+  gem 'binding_of_caller'
+  gem 'html2slim'
+end
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

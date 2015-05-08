@@ -1,0 +1,34 @@
+#accordion.panel-group role="tablist" aria-multiselectable="true"
+  .panel.panel-default
+    #headingOne.panel-heading[role="tab"]
+      h4.panel-title
+        a data-toggle="collapse" data-parent="#accordion" href="#amos-destinations" aria-expanded="true" aria-controls="amos-destinations"
+          |  AMOS
+    #amos-destinations.panel-collapse.collapse.in role="tabpanel" aria-labelledby="headingOne"
+      .panel-body
+        .table-responsive
+          table.table.table-hover
+            - @amos_destinations.each do |destination|
+              = render "destination", name: destination["name"], visited: destination["visited"]
+  .panel.panel-default
+    #headingTwo.panel-heading role="tab"
+      h4.panel-title
+        a.collapsed data-toggle="collapse" data-parent="#accordion" href="#andy-destinations" aria-expanded="false" aria-controls="andy-destinations"
+          |  ANDY
+    #andy-destinations.panel-collapse.collapse role="tabpanel" aria-labelledby="headingTwo"
+      .panel-body
+        .table-responsive
+          table.table.table-hover
+            - @andy_destinations.each do |destination|
+              = render "destination", name: destination["name"], visited: destination["visited"]
+  .panel.panel-default
+    #headingThree.panel-heading role="tab"
+      h4.panel-title
+        a.collapsed data-toggle="collapse" data-parent="#accordion" href="#evie-destinations" aria-expanded="false" aria-controls="evie-destinations"
+          |  EVIE
+    #evie-destinations.panel-collapse.collapse role="tabpanel" aria-labelledby="headingThree"
+      .panel-body
+        .table-responsive
+          table.table.table-hover
+            - @evie_destinations.each do |destination|
+              = render "destination", name: destination["name"], visited: destination["visited"]
