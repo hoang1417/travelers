@@ -10,7 +10,7 @@
         .table-responsive
           table.table.table-hover
             - @amos_destinations.each do |destination|
-              = render "destination", name: destination["name"], visited: destination["visited"]
+              = render "destination", name: destination["name"], visited: destination["visited"], disabled: @is_disable[:amos]
   .panel.panel-default
     #headingTwo.panel-heading role="tab"
       h4.panel-title
@@ -21,7 +21,7 @@
         .table-responsive
           table.table.table-hover
             - @andy_destinations.each do |destination|
-              = render "destination", name: destination["name"], visited: destination["visited"]
+              = render "destination", name: destination["name"], visited: destination["visited"], disabled: @is_disable[:andy]
   .panel.panel-default
     #headingThree.panel-heading role="tab"
       h4.panel-title
@@ -32,7 +32,7 @@
         .table-responsive
           table.table.table-hover
             - @evie_destinations.each do |destination|
-              = render "destination", name: destination["name"], visited: destination["visited"]
+              = render "destination", name: destination["name"], visited: destination["visited"], disabled: @is_disable[:evie]
 
 .new-destination
   = label_tag("New destination")

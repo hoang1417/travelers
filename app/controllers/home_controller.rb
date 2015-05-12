@@ -18,6 +18,11 @@ class HomeController < ApplicationController
     @andy_destinations = session[:destination_list][1]["destinations"]
     @evie_destinations = session[:destination_list][2]["destinations"]
 
+    @is_disable = {}
+    @is_disable[:amos] = (session[:user_hash]["name"] != "amos")
+    @is_disable[:andy] = (session[:user_hash]["name"] != "andy")
+    @is_disable[:evie] = (session[:user_hash]["name"] != "evie")
+
     @destinations = Country.all.map { |c| c.first }
   end
 
