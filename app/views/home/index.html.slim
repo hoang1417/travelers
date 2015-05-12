@@ -49,5 +49,9 @@ javascript:
     $(currentUserDestinations).addClass("in");
 
     // only bind click events of currentUserDestinations
-    actionsHandler(currentUserDestinations, "full");
+    var userHash = {};
+    userHash["token"] = "#{session[:user_hash]["token"]}";
+    userHash["id"] = "#{session[:user_hash]["id"]}";
+
+    actionsHandler(currentUserDestinations, userHash, "full");
   })

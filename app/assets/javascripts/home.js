@@ -1,4 +1,4 @@
-function addDestination(currentUserCheckboxes, currentUserDestinationTable, currentUserDestinations) {
+function addDestination(userHash, currentUserCheckboxes, currentUserDestinationTable, currentUserDestinations) {
   $("#add-destination-button").unbind("click").on("click", function(e){
     e.preventDefault();
 
@@ -9,22 +9,24 @@ function addDestination(currentUserCheckboxes, currentUserDestinationTable, curr
       '<tr class="destination"><td><div class="checkbox"><label><input type="checkbox" value="' + destinationName + '">' + destinationName +'</label></div></td><td><a class="delete-destination-button" href="javascript:void(0)"><i class="fa fa-times"></i></a></td></tr>'
     )
 
-    updateDestinations(currentUserCheckboxes);
-    actionsHandler(currentUserDestinations);
+    updateDestinations(userHash, currentUserCheckboxes);
+
+    // rebind event handlers for all elements, including new ones
+    actionsHandler(currentUserDestinations, userHash);
   })
 }
 
-function deleteDestination(currentUserCheckboxes, currentUserDeleteButtons) {
+function deleteDestination(userHash, currentUserCheckboxes, currentUserDeleteButtons) {
   $(currentUserDeleteButtons).unbind("click").on("click", function(e){
     e.preventDefault();
     // remove this element
     $(this).parents(".destination").remove();
 
-    updateDestinations(currentUserCheckboxes);
+    updateDestinations(userHash, currentUserCheckboxes);
   })
 }
 
-function toggleDestinationVisitedStatus(currentUserCheckboxes) {
+function toggleDestinationVisitedStatus(userHash, currentUserCheckboxes) {
   $(currentUserCheckboxes).unbind("click").on("click", function(){
     // toggle checked value
     if ( $(this).attr("checked") == "checked" ) {
@@ -33,12 +35,12 @@ function toggleDestinationVisitedStatus(currentUserCheckboxes) {
       $(this).attr("checked", true);
     }
 
-    updateDestinations(currentUserCheckboxes);
+    updateDestinations(userHash, currentUserCheckboxes);
   })
 }
 
 // shared method for all 3 above actions
-function updateDestinations(currentUserCheckboxes) {
+function updateDestinations(userHash, currentUserCheckboxes) {
   var destinations = [];
   var isChecked = false;
   $(currentUserCheckboxes).each(function() {
@@ -54,29 +56,45 @@ function updateDestinations(currentUserCheckboxes) {
 
     destinations.push(destination);
   });
-  destinations = JSON.stringify(destinations);
-  // alert(destinations);
+
+  // Call API from client side
+  var authorizationToken = "Token token=" + userHash["token"];
 
   $.ajax({
-    url: '/destinations',
-    type: 'POST',
+    beforeSend: function (xhr) {
+      xhr.setRequestHeader ("Authorization", authorizationToken);
+    },
+    type: "PATCH",
     data: { destinations: destinations },
-    traditional: true,
+    url: "https://young-beyond-8772.herokuapp.com/travelers/" + userHash["id"],
+    dataType: "json",
     success: function (result) {
       console.log(JSON.stringify(result));
     }
   });
 }
 
-function actionsHandler(currentUserDestinations, option) {
+function actionsHandler(currentUserDestinations, userHash, option) {
   var currentUserCheckboxes = currentUserDestinations + " input";
-  toggleDestinationVisitedStatus(currentUserCheckboxes);
+  toggleDestinationVisitedStatus(userHash, currentUserCheckboxes);
 
   var currentUserDeleteButtons = currentUserDestinations + " .delete-destination-button";
-  deleteDestination(currentUserCheckboxes, currentUserDeleteButtons);
+  deleteDestination(userHash, currentUserCheckboxes, currentUserDeleteButtons);
 
   if ( option == "full" ) {
     var currentUserDestinationTable = currentUserDestinations + " tbody";
-    addDestination(currentUserCheckboxes, currentUserDestinationTable, currentUserDestinations);
+    addDestination(userHash, currentUserCheckboxes, currentUserDestinationTable, currentUserDestinations);
   }
 }
+
+// Call API from server side
+// destinations = JSON.stringify(destinations);
+// $.ajax({
+//   url: '/destinations',
+//   type: 'POST',
+//   data: { destinations: destinations },
+//   traditional: true,
+//   success: function (result) {
+//     console.log(JSON.stringify(result));
+//   }
+// });
