@@ -1,5 +1,5 @@
 function addDestination(currentUserCheckboxes, currentUserDestinationTable, currentUserDestinations) {
-  $("#add-destination-button").on("click", function(e){
+  $("#add-destination-button").unbind("click").on("click", function(e){
     e.preventDefault();
 
     // add new destination
@@ -15,7 +15,7 @@ function addDestination(currentUserCheckboxes, currentUserDestinationTable, curr
 }
 
 function deleteDestination(currentUserCheckboxes, currentUserDeleteButtons) {
-  $(currentUserDeleteButtons).on("click", function(e){
+  $(currentUserDeleteButtons).unbind("click").on("click", function(e){
     e.preventDefault();
     // remove this element
     $(this).parents(".destination").remove();
@@ -25,7 +25,7 @@ function deleteDestination(currentUserCheckboxes, currentUserDeleteButtons) {
 }
 
 function toggleDestinationVisitedStatus(currentUserCheckboxes) {
-  $(currentUserCheckboxes).on("click", function(){
+  $(currentUserCheckboxes).unbind("click").on("click", function(){
     // toggle checked value
     if ( $(this).attr("checked") == "checked" ) {
       $(this).attr("checked", false);
@@ -68,13 +68,15 @@ function updateDestinations(currentUserCheckboxes) {
   });
 }
 
-function actionsHandler(currentUserDestinations) {
+function actionsHandler(currentUserDestinations, option) {
   var currentUserCheckboxes = currentUserDestinations + " input";
   toggleDestinationVisitedStatus(currentUserCheckboxes);
 
   var currentUserDeleteButtons = currentUserDestinations + " .delete-destination-button";
   deleteDestination(currentUserCheckboxes, currentUserDeleteButtons);
 
-  var currentUserDestinationTable = currentUserDestinations + " tbody";
-  addDestination(currentUserCheckboxes, currentUserDestinationTable, currentUserDestinations);
+  if ( option == "full" ) {
+    var currentUserDestinationTable = currentUserDestinations + " tbody";
+    addDestination(currentUserCheckboxes, currentUserDestinationTable, currentUserDestinations);
+  }
 }
